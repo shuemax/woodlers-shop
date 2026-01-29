@@ -176,8 +176,14 @@
         }
 
         function updateQty(index, val) {
-            // VULNERABILITY
-            cart[index].qty = parseInt(val);
+            let cleanVal = parseInt(val);
+
+            if (cleanVal < 1) {
+                alert("Quantity must be at least 1");
+                cleanVal = 1;
+            }
+
+            cart[index].qty = cleanVal;
             updateCart();
         }
 
@@ -189,9 +195,11 @@
             const resultDiv = document.getElementById('shipping-result');
             
             // Reset counter if it's been more than 5 seconds
-            if (now - lastApiHit > 5000) {
-                apiHits = 0;
+           if (now - lastApiHit < 2000) {
+                resultDiv.innerText = "Please wait before calculating again.";
+                return;
             }
+
             lastApiHit = now;
             apiHits++;
 
@@ -222,3 +230,4 @@
 </body>
 
 </html>
+
