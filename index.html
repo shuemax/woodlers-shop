@@ -104,6 +104,11 @@
 
         async function attemptPurchase(id, name, price) {
             const msgEl = document.getElementById(`msg-${id}`);
+
+        const btn = document.getElementById(`btn-${id}`);
+                if (btn.disabled) return;
+
+                btn.disabled = true;
     
             // 1. Increment request counter (Simulates server load)
             activeRequests++;
@@ -215,4 +220,5 @@
         }
     </script>
 </body>
+
 </html>
